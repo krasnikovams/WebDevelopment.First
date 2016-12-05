@@ -1,6 +1,6 @@
 Login to AWS
 ============
-ubuntu@54.164.127.35 (ppk key required)
+ubuntu@54.210.52.144 (ppk key required)
 
 Build project
 =============
@@ -21,5 +21,22 @@ mvn jetty:run (not tested yet)
 
 Access nginx
 ============
-in browser go to http://54.164.127.35/
+in browser go to http://54.210.52.144/
 verify message: "Welcome to nginx!"
+
+
+Appendix: Setup EC2 instance
+============================
+sudo add-apt-repository ppa:webupd8team/java
+sudo apt-get update
+sudo apt-get install oracle-java8-installer
+java -version
+sudo apt-get install maven
+mvn -version
+sudo apt-get install mc
+mc (quit with F10)
+sudo apt-get install nginx
+sudo ufw allow 'Nginx HTTP'
+sudo ufw enable
+sudo ufw status
+verify nginx access in browser as in "Access nginx"
