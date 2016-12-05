@@ -36,7 +36,18 @@ mvn -version
 sudo apt-get install mc
 mc (quit with F10)
 sudo apt-get install nginx
-sudo ufw allow 'Nginx HTTP'
-sudo ufw enable
-sudo ufw status
 verify nginx access in browser as in "Access nginx"
+ls /etc/nginx/nginx.conf
+cd /etc/nginx
+sudo mc
+edit nginx.conf: (not tested yet)
+http {
+  server {
+      location / {
+          proxy_pass http://localhost:8080/;
+      }
+  }
+}
+sudo nginx -s reload
+verify nginx again
+
