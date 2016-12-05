@@ -1,6 +1,6 @@
 Login to AWS
 ============
-ubuntu@54.210.52.144 (ppk key required)
+ubuntu@54.196.76.192 (ppk key required)
 
 Build project
 =============
@@ -21,7 +21,7 @@ mvn jetty:run (not tested yet)
 
 Access nginx
 ============
-in browser go to http://54.210.52.144/
+in browser go to http://54.196.76.192/
 verify message: "Welcome to nginx!"
 
 
