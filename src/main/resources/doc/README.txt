@@ -50,4 +50,8 @@ http {
 }
 sudo nginx -s reload
 verify nginx again
-
+cd ~ubuntu/
+mkdir prjs
+chmod 777 prjs/
+ls -l
+copy <project directory> to /home/ubuntu/prjs using winscp
