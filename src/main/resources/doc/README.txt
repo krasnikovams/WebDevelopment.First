@@ -5,6 +5,7 @@ ubuntu@54.196.76.192 (ppk key required)
 Build project
 =============
 cd /home/ubuntu/prjs/WebDevelopment.First
+mvn clean
 mvn clean package
 
 Launch jetty locally
@@ -14,10 +15,12 @@ mvn jetty:run
 in browser go to http://localhost:8080/WebDevelopment.First/krasnikova.html
 verify message: "Krasnikova Maria"
 
-Launch jetty
-============
+Launch jetty on AWS
+===================
 cd /home/ubuntu/prjs/WebDevelopment.First
-mvn jetty:run (not tested yet)
+mvn jetty:run
+in browser go to http://54.196.76.192/WebDevelopment.First/krasnikova.html
+verify message: "Krasnikova Maria"
 
 Access nginx
 ============
@@ -40,11 +43,11 @@ verify nginx access in browser as in "Access nginx"
 ls /etc/nginx/nginx.conf
 cd /etc/nginx
 sudo mc
-edit nginx.conf: (not tested yet)
+edit nginx.conf:
 http {
   server {
-      location / {
-          proxy_pass http://localhost:8080/;
+      location /WebDevelopment.First/ {
+          proxy_pass http://127.0.0.1:8080/WebDevelopment.First/;
       }
   }
 }
@@ -55,3 +58,9 @@ mkdir prjs
 chmod 777 prjs/
 ls -l
 copy <project directory> to /home/ubuntu/prjs using winscp
+"Build project"
+
+cd /var/log/nginx/
+
+sudo iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 80 -j REDIRECT --to-port 8080
+"Launch jetty on AWS"
