@@ -3,14 +3,23 @@
         "http://java.sun.com/dtd/web-app_2_3.dtd" >
 
 <web-app>
-    <display-name>Archetype Created Web Application</display-name>
+    <display-name>Search Application</display-name>
     <servlet>
-        <servlet-name>DemoServlet</servlet-name>
-        <servlet-class>WebDevelopment.servlet.DemoServlet</servlet-class>
+        <servlet-name>SearchServlet</servlet-name>
+        <servlet-class>WebDevelopment.servlet.SearchServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ShowServlet</servlet-name>
+        <servlet-class>WebDevelopment.servlet.ShowServlet</servlet-class>
+    </servlet>
+
     <servlet-mapping>
-        <servlet-name>DemoServlet</servlet-name>
+        <servlet-name>SearchServlet</servlet-name>
         <url-pattern>/search/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ShowServlet</servlet-name>
+        <url-pattern>/show/*</url-pattern>
     </servlet-mapping>
 
 </web-app>

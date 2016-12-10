@@ -9,10 +9,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Date;
 import java.util.List;
 
-public class DemoServlet extends HttpServlet {
+public class SearchServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
