@@ -18,24 +18,25 @@ public class DemoServlet extends HttpServlet {
 
         res.setContentType("text/html");
         String words = req.getParameter("words");
-        List<File> found = SimpleIndexer.getInstance().search(words);
+        String found = results(words, SimpleIndexer.getInstance().search(words));
 
         PrintWriter writer = res.getWriter();
         writer.println("<html>");
         writer.println("<head><title>Search results</title></head>");
-        writer.println("<body>" + results(found) + "</body>");
+        writer.println("<body>" + found + "</body>");
         writer.println("</html>");
         writer.close();
     }
 
-    private String results(List<File> results){
+    private String results(String words, List<File> results){
+        String header = "<b>Search result for words: [" + words + "]</b><br><br>";
         if (results == null || results.size() == 0){
-            return "<color=red><b>NOTHING FOUND</b></color>";
+            return header + "<font color=\"red\"><b>NOTHING FOUND</b></font>";
         }
         StringBuilder result = new StringBuilder();
         for (File file:results){
             result.append("<br>").append(file.getName()).append("</br>");
         }
-        return result.toString();
+        return header + result.toString();
     }
 }
