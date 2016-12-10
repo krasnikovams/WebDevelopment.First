@@ -6,14 +6,30 @@ import java.util.stream.Collectors;
 
 
 public class InvertedIndex {
+    private final Map<String, List<File>> index;
+
+    public InvertedIndex(String dirName)throws IOException {
+        index = index(new DirParser().parseDirectory(dirName));
+    }
+
     public static void main(String[] args) throws IOException {
-        new InvertedIndex().work();
+        new InvertedIndex("D:\\webdev\\text").work();
     }
 
     private void work() throws IOException {
+        System.out.println(find("brown","dog"));
+    }
 
-        Map<File,List<String>> result = new DirParser().parseDirectory("D:\\webdev\\text");
-        System.out.println(wordSet(result));
+    private List<File> find(String first, String... words){
+        List<File> result = find(first);
+        for (String word : words){
+            result.retainAll(find(word));
+        }
+        return result;
+    }
+
+    private List<File> find(String word){
+        return index.get(word.toLowerCase());
     }
 
     private Map<String, List<File>> index(Map<File,List<String>> filesToWords){
