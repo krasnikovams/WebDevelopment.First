@@ -12,16 +12,18 @@ public class ShowServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
         res.setContentType("text/html");
-        String fileName = req.getParameter("file");
+        String fileNameEncoded = req.getParameter("file");
 
         PrintWriter writer = res.getWriter();
         writer.println("<html>");
-        write(fileName,writer);
+        write(fileNameEncoded,writer);
         writer.println("</html>");
         writer.close();
     }
 
-    private void write(String fileName,PrintWriter writer){
+    private void write(String fileNameEncoded,PrintWriter writer){
+        String fileName = decode(fileNameEncoded);
+        System.out.println("showing file: [" + fileName + "]");
         if (fileName == null){
             writer.println("<head><title>Error</title></head>"
                     + "<body><font color=\"red\"><b>FILE NOT FOUND</b></font></body>");
@@ -43,5 +45,14 @@ public class ShowServlet extends HttpServlet {
         }
 
         writer.println("</pre></body>");
+    }
+
+    private String decode(String encoded){
+        //System.out.println("decoding file name: [" + encoded + "]"); toDo log at debug level
+        try{
+            return java.net.URLDecoder.decode(encoded,"UTF-8");
+        }catch (UnsupportedEncodingException uee){
+            return null;
+        }
     }
 }
