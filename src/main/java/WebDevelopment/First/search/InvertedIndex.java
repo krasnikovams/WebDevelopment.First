@@ -5,22 +5,27 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 
-public class InvertedIndex {
+class InvertedIndex {
     private final Map<String, List<File>> index;
 
-    public InvertedIndex(String dirName)throws IOException {
+    InvertedIndex(String dirName)throws IOException {
         index = index(new DirParser().parseDirectory(dirName));
     }
 
     public static void main(String[] args) throws IOException {
-        new InvertedIndex("D:\\webdev\\text").work();
+        //new InvertedIndex("D:\\webdev\\text").work();
+        System.out.println(SimpleIndexer.getInstance().search("brown dog"));
     }
 
-    private void work() throws IOException {
-        System.out.println(find("brown","dog"));
+    List<File> find(List<String> words){
+        System.out.println("search words: " + words);
+        if (words == null || words.size() == 0){
+            return new ArrayList<>(); //empty
+        }
+        return findWithFirst(words.get(0), words.subList(1, words.size()));
     }
 
-    private List<File> find(String first, String... words){
+    private List<File> findWithFirst(String first, List<String> words){
         List<File> result = find(first);
         for (String word : words){
             result.retainAll(find(word));
@@ -36,11 +41,9 @@ public class InvertedIndex {
         Map<String, List<File>> wordToDocumentMap = new HashMap<>();
         for (String word : wordSet(filesToWords)){
             List<File> filesWithWord = getOrCreate(wordToDocumentMap, word);
-            for(File currentDocument : filesToWords.keySet()){
-                if (filesToWords.get(currentDocument).contains(word)){
-                    filesWithWord.add(currentDocument);
-                }
-            }
+            filesWithWord.addAll(filesToWords.keySet().stream()
+                    .filter(currentDocument -> filesToWords.get(currentDocument).contains(word))
+                    .collect(Collectors.toList()));
         }
         return wordToDocumentMap;
     }

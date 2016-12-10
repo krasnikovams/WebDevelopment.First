@@ -25,6 +25,7 @@ class DirParser {
     }
 
     private List<String> parseFile(File file) throws IOException {
+        //System.out.println("parsing file: " + file); toDo log at debug level
         List<String> result = new ArrayList<>();
 
         BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
@@ -35,7 +36,7 @@ class DirParser {
         return result;
     }
 
-    private List<String> parse(String input){
+    List<String> parse(String input){
         List<String> result = new ArrayList<>();
         Pattern p = Pattern.compile("[\\w']+");
         Matcher m = p.matcher(input);
