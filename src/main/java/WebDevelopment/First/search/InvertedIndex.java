@@ -12,19 +12,43 @@ public class InvertedIndex {
 
     private void work() throws IOException {
 
-        Map<String,List<String>> result = new DirParser().parseDirectory("D:\\webdev\\text");
+        Map<File,List<String>> result = new DirParser().parseDirectory("D:\\webdev\\text");
         System.out.println(wordSet(result));
     }
 
-    private Map<String, Map<String, Integer>> index(Map<String,List<String>> data){
-        Map<String, Map<String, Integer>> wordToDocumentMap = new HashMap<>();
+    private Map<String, Map<File, Integer>> index(Map<File,List<String>> filesToWords){
+        Map<String, Map<File, Integer>> wordToDocumentMap = new HashMap<>();
+        for (String word : wordSet(filesToWords)){
+            Map<File, Integer> documentToCountMap = getOrCreate(wordToDocumentMap, word);
+            for(File currentDocument : documentToCountMap.keySet()){
+                Integer currentCount = documentToCountMap.get(currentDocument);
+                if(currentCount == null) {
+                    // This word has not been found in this document before, so
+                    // set the initial count to zero.
+                    currentCount = 0;
+                }
+                documentToCountMap.put(currentDocument, currentCount + 1);
+            }
+        }
         return wordToDocumentMap;
     }
 
-    private Set<String> wordSet(Map<String,List<String>> data){
+    private Map<File, Integer> getOrCreate(Map<String, Map<File, Integer>> wordToDocumentMap, String word) {
+        Map<File, Integer> documentToCountMap = wordToDocumentMap.get(word);
+        if (documentToCountMap != null) {
+            return documentToCountMap;
+        }
+        documentToCountMap = new TreeMap<>();
+        wordToDocumentMap.put(word, documentToCountMap);
+        return documentToCountMap;
+    }
+
+    private Set<String> wordSet(Map<File,List<String>> filesToWords){
         Set<String> result = new HashSet<>();
-        for(String key : data.keySet()){
-            result.addAll(data.get(key).stream().map(String::toLowerCase).collect(Collectors.toList()));
+        for(File key : filesToWords.keySet()){
+            result.addAll(filesToWords.get(key).stream()
+                    .map(String::toLowerCase) //ignore case
+                    .collect(Collectors.toList()));
         }
 
         return result;

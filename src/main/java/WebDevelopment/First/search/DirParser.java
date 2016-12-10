@@ -10,15 +10,15 @@ import java.util.regex.Pattern;
 
 class DirParser {
 
-    Map<String,List<String>> parseDirectory(final String dirName) throws IOException {
-        Map<String,List<String>> result = new HashMap<>();
+    Map<File,List<String>> parseDirectory(final String dirName) throws IOException {
+        Map<File,List<String>> result = new HashMap<>();
 
         File folder = new File(dirName);
         File[] listOfFiles = folder.listFiles((dir, name)
                 -> name!=null && new File(dir,name).isFile() && name.endsWith(".txt"));
 
         for (File file: listOfFiles) {
-            result.put(file.getName(),parseFile(file));
+            result.put(file,parseFile(file));
         }
 
         return result;
