@@ -16,38 +16,33 @@ public class InvertedIndex {
         System.out.println(wordSet(result));
     }
 
-    private Map<String, Map<File, Integer>> index(Map<File,List<String>> filesToWords){
-        Map<String, Map<File, Integer>> wordToDocumentMap = new HashMap<>();
+    private Map<String, List<File>> index(Map<File,List<String>> filesToWords){
+        Map<String, List<File>> wordToDocumentMap = new HashMap<>();
         for (String word : wordSet(filesToWords)){
-            Map<File, Integer> documentToCountMap = getOrCreate(wordToDocumentMap, word);
-            for(File currentDocument : documentToCountMap.keySet()){
-                Integer currentCount = documentToCountMap.get(currentDocument);
-                if(currentCount == null) {
-                    // This word has not been found in this document before, so
-                    // set the initial count to zero.
-                    currentCount = 0;
+            List<File> filesWithWord = getOrCreate(wordToDocumentMap, word);
+            for(File currentDocument : filesToWords.keySet()){
+                if (filesToWords.get(currentDocument).contains(word)){
+                    filesWithWord.add(currentDocument);
                 }
-                documentToCountMap.put(currentDocument, currentCount + 1);
             }
         }
         return wordToDocumentMap;
     }
 
-    private Map<File, Integer> getOrCreate(Map<String, Map<File, Integer>> wordToDocumentMap, String word) {
-        Map<File, Integer> documentToCountMap = wordToDocumentMap.get(word);
-        if (documentToCountMap != null) {
-            return documentToCountMap;
+    private List<File> getOrCreate(Map<String, List<File>> wordToDocumentMap, String word) {
+        List<File> filesWithWord = wordToDocumentMap.get(word);
+        if (filesWithWord != null) {
+            return filesWithWord;
         }
-        documentToCountMap = new TreeMap<>();
-        wordToDocumentMap.put(word, documentToCountMap);
-        return documentToCountMap;
+        filesWithWord = new ArrayList<>();
+        wordToDocumentMap.put(word, filesWithWord);
+        return filesWithWord;
     }
 
     private Set<String> wordSet(Map<File,List<String>> filesToWords){
         Set<String> result = new HashSet<>();
         for(File key : filesToWords.keySet()){
             result.addAll(filesToWords.get(key).stream()
-                    .map(String::toLowerCase) //ignore case
                     .collect(Collectors.toList()));
         }
 

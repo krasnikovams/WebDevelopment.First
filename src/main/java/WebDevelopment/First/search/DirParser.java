@@ -41,7 +41,7 @@ class DirParser {
         Matcher m = p.matcher(input);
 
         while ( m.find() ) {
-            result.add(input.substring(m.start(), m.end()));
+            result.add(input.substring(m.start(), m.end()).toLowerCase());
         }
 
         return result;
