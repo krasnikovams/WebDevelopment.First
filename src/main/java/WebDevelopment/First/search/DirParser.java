@@ -11,14 +11,11 @@ import java.util.regex.Pattern;
 class DirParser {
 
     Map<String,List<String>> parseDirectory(final String dirName) throws IOException {
-        Map<String,List<String>> result = new HashMap<String, List<String>>();
+        Map<String,List<String>> result = new HashMap<>();
 
         File folder = new File(dirName);
-        File[] listOfFiles = folder.listFiles(new FilenameFilter() {
-            public boolean accept(File dir, String name) {
-                return name!=null && new File(dir,name).isFile() && name.endsWith(".txt");
-            }
-        });
+        File[] listOfFiles = folder.listFiles((dir, name)
+                -> name!=null && new File(dir,name).isFile() && name.endsWith(".txt"));
 
         for (File file: listOfFiles) {
             result.put(file.getName(),parseFile(file));
@@ -28,10 +25,10 @@ class DirParser {
     }
 
     private List<String> parseFile(File file) throws IOException {
-        List<String> result = new ArrayList<String>();
+        List<String> result = new ArrayList<>();
 
         BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
-        String line = null;
+        String line;
         while( (line = br.readLine())!= null ){
             result.addAll(parse(line));
         }
@@ -39,7 +36,7 @@ class DirParser {
     }
 
     private List<String> parse(String input){
-        List<String> result = new ArrayList<String>();
+        List<String> result = new ArrayList<>();
         Pattern p = Pattern.compile("[\\w']+");
         Matcher m = p.matcher(input);
 
