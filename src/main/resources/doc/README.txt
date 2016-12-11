@@ -8,6 +8,11 @@ cd /home/ubuntu/prjs/WebDevelopment.First
 mvn clean
 mvn clean package
 
+Configure logging
+=================
+Set JVM oprions via command line or in IDEA or with MAVEN_OPTS for Jetty:
+-Djava.util.logging.config.file=C:\Users\Masha\Documents\GitHub\WebDevelopment.First\src\main\resources\logging.properties
+
 Launch jetty locally
 ====================
 cd <project directory>
@@ -28,6 +33,7 @@ check and kill if jetty is running:
 
 cd /home/ubuntu/prjs/WebDevelopment.First
 export MY_SEARCH_DIRECTORY=/home/ubuntu/prjs/text
+export MAVEN_OPTS=-Djava.util.logging.config.file=/home/ubuntu/prjs/WebDevelopment.First/src/main/resources/logging.properties
 mvn clean package
 mvn jetty:run &
 in browser go to http://54.196.76.192/WebDevelopment.First/krasnikova.html
