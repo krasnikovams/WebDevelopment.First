@@ -45,6 +45,10 @@ in browser go to http://54.196.76.192/
 verify message: "Welcome to nginx!"
 
 
+Launch logstash
+===============
+bin\logstash -f C:\Users\Masha\Documents\GitHub\WebDevelopment.First\src\main\resources\logstash.conf --config.test_and_exit
+
 Appendix: Setup EC2 instance
 ============================
 sudo add-apt-repository ppa:webupd8team/java
