@@ -11,7 +11,7 @@ mvn clean package
 Configure logging
 =================
 Set JVM oprions via command line or in IDEA or with MAVEN_OPTS for Jetty:
--Djava.util.logging.config.file=C:\Users\Masha\Documents\GitHub\WebDevelopment.First\src\main\resources\logging.properties
+-Djava.util.logging.config.file=C:\Users\Masha\Documents\GitHub\WebDevelopment.First\src\main\resources\logstash.properties
 
 Launch jetty locally
 ====================
@@ -33,7 +33,7 @@ check and kill if jetty is running:
 
 cd /home/ubuntu/prjs/WebDevelopment.First
 export MY_SEARCH_DIRECTORY=/home/ubuntu/prjs/text
-export MAVEN_OPTS=-Djava.util.logging.config.file=/home/ubuntu/prjs/WebDevelopment.First/src/main/resources/logging.properties
+export MAVEN_OPTS=-Djava.util.logging.config.file=/home/ubuntu/prjs/WebDevelopment.First/src/main/resources/logstash.properties
 mvn clean package
 mvn jetty:run &
 in browser go to http://54.196.76.192/WebDevelopment.First/krasnikova.html
@@ -75,6 +75,11 @@ mkdir prjs
 chmod 777 prjs/
 ls -l
 copy <project directory> to /home/ubuntu/prjs using winscp
+
+cd /home/ubuntu/prjs/WebDevelopment.First
+sudo mkdir logs
+sudo chmod 777 logs
+
 "Build project"
 
 cd /var/log/nginx/
