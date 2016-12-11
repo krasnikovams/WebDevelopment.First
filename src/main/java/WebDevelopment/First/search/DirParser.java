@@ -12,6 +12,10 @@ class DirParser {
 
     Map<File,List<String>> parseDirectory(final String dirName) throws IOException {
         Map<File,List<String>> result = new HashMap<>();
+        if (dirName == null){
+            System.out.println("dirName is null");
+            return result;
+        }
 
         File folder = new File(dirName);
         File[] listOfFiles = folder.listFiles((dir, name)

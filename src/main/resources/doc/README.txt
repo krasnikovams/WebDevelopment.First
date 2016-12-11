@@ -27,7 +27,7 @@ check and kill if jetty is running:
     ubuntu@ip-172-31-18-44:~$
 
 cd /home/ubuntu/prjs/WebDevelopment.First
-set MY_SEARCH_DIRECTORY=/home/ubuntu/prjs/text
+export MY_SEARCH_DIRECTORY=/home/ubuntu/prjs/text
 mvn clean package
 mvn jetty:run &
 in browser go to http://54.196.76.192/WebDevelopment.First/krasnikova.html
