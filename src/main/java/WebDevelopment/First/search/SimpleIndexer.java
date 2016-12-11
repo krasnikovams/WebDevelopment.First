@@ -12,7 +12,9 @@ public class SimpleIndexer {
     private SimpleIndexer() {
         String envVarName = "MY_SEARCH_DIRECTORY";
         System.out.println("using environment variable: [" + envVarName + "]");
-        index = make(System.getenv(envVarName));
+        String directory = System.getenv(envVarName);
+        index = make(directory);
+        System.out.println("indexed files in directory: [" + directory + "]");
     }
 
 
