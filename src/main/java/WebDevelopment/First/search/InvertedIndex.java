@@ -2,23 +2,29 @@ package WebDevelopment.First.search;
 
 import java.io.*;
 import java.util.*;
+import java.util.logging.*;
 import java.util.stream.Collectors;
 
 
 class InvertedIndex {
+    private static final Logger LOG = Logger.getLogger(InvertedIndex.class.getName());
+
     private final Map<String, List<File>> index;
 
     InvertedIndex(String dirName)throws IOException {
+        LOG.log(Level.INFO, "indexing directory: [" + dirName + "]");
         index = index(new DirParser().parseDirectory(dirName));
+        LOG.log(Level.INFO, "completed indexing directory: [" + dirName + "], total words found (ignore case) "
+                + (index == null ? "null" : index.size()));
     }
 
     public static void main(String[] args) throws IOException {
         //new InvertedIndex("D:\\webdev\\text").work();
-        System.out.println(SimpleIndexer.getInstance().search("brown dog"));
+        LOG.log(Level.INFO, SimpleIndexer.getInstance().search("brown dog").toString());
     }
 
     List<File> find(List<String> words){
-        System.out.println("search words: " + words);
+        LOG.log(Level.INFO, "search words: " + words);
         if (words == null || words.size() == 0){
             return new ArrayList<>(); //empty
         }

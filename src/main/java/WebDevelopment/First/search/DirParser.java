@@ -1,25 +1,27 @@
 package WebDevelopment.First.search;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.logging.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 class DirParser {
 
+    private static final Logger LOG = Logger.getLogger(DirParser.class.getName());
+
     Map<File,List<String>> parseDirectory(final String dirName) throws IOException {
         Map<File,List<String>> result = new HashMap<>();
         if (dirName == null){
-            System.out.println("dirName is null");
+            LOG.log(Level.INFO, "dirName is null");
             return result;
         }
 
         File folder = new File(dirName);
         File[] listOfFiles = folder.listFiles((dir, name)
                 -> name!=null && new File(dir,name).isFile() && name.endsWith(".txt"));
+
+        LOG.log(Level.INFO, "indexing files: [" + Arrays.toString(listOfFiles) + "]");
 
         for (File file: listOfFiles) {
             result.put(file,parseFile(file));
@@ -29,7 +31,7 @@ class DirParser {
     }
 
     private List<String> parseFile(File file) throws IOException {
-        //System.out.println("parsing file: " + file); toDo log at debug level
+        LOG.log(Level.FINE, "parsing file: " + file);
         List<String> result = new ArrayList<>();
 
         BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file)));

@@ -5,9 +5,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
-import java.util.List;
+import java.util.logging.*;
 
 public class ShowServlet extends HttpServlet {
+    private static final Logger LOG = Logger.getLogger(ShowServlet.class.getName());
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
@@ -23,8 +25,9 @@ public class ShowServlet extends HttpServlet {
 
     private void write(String fileNameEncoded,PrintWriter writer){
         String fileName = decode(fileNameEncoded);
-        System.out.println("showing file: [" + fileName + "]");
+        LOG.log(Level.INFO, "showing file: [" + fileName + "]");
         if (fileName == null){
+            LOG.log(Level.WARNING, "File not found: [" + fileNameEncoded + "]");
             writer.println("<head><title>Error</title></head>"
                     + "<body><font color=\"red\"><b>FILE NOT FOUND</b></font></body>");
             return;
@@ -39,6 +42,7 @@ public class ShowServlet extends HttpServlet {
                 writer.println(line);
             }
         }catch (IOException ioe){
+            LOG.log(Level.WARNING, "Exception writing file: [" + file + "]", ioe);
             writer.println("<hr>");
             writer.println(ioe.getMessage());
             writer.println("</hr>");
@@ -48,10 +52,11 @@ public class ShowServlet extends HttpServlet {
     }
 
     private String decode(String encoded){
-        //System.out.println("decoding file name: [" + encoded + "]"); toDo log at debug level
+        LOG.log(Level.FINE, "decoding file name: [" + encoded + "]");
         try{
             return java.net.URLDecoder.decode(encoded,"UTF-8");
         }catch (UnsupportedEncodingException uee){
+            LOG.log(Level.WARNING, "Exception decoding file name: [" + encoded + "]", uee);
             return null;
         }
     }

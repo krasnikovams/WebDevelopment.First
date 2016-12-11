@@ -11,8 +11,10 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
+import java.util.logging.*;
 
 public class SearchServlet extends HttpServlet {
+    private static final Logger LOG = Logger.getLogger(SearchServlet.class.getName());
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
@@ -29,8 +31,10 @@ public class SearchServlet extends HttpServlet {
     }
 
     private String results(String words, List<File> results){
+        LOG.log(Level.INFO, "Search for words: [" + words + "], result: " + results);
         String header = "<b>Search result for words: [" + words + "]</b><br><br>";
         if (results == null || results.size() == 0){
+            LOG.log(Level.INFO, "Nothing found for words: [" + words + "]");
             return header + "<font color=\"red\"><b>NOTHING FOUND</b></font>";
         }
         StringBuilder result = new StringBuilder();
@@ -57,6 +61,7 @@ public class SearchServlet extends HttpServlet {
         try{
             return java.net.URLEncoder.encode(file.getAbsolutePath(),"UTF-8");
         }catch (UnsupportedEncodingException uee){
+            LOG.log(Level.WARNING, "Exception encoding file name: [" + file + "]", uee);
             return null;
         }
     }
