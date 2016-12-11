@@ -17,8 +17,19 @@ verify message: "Krasnikova Maria"
 
 Launch jetty on AWS
 ===================
+check and kill if jetty is running:
+    ubuntu@ip-172-31-18-44:~$ jps
+    7063 Launcher
+    22031 Jps
+    ubuntu@ip-172-31-18-44:~$ kill -9 7063
+    ubuntu@ip-172-31-18-44:~$ jps
+    22043 Jps
+    ubuntu@ip-172-31-18-44:~$
+
 cd /home/ubuntu/prjs/WebDevelopment.First
-mvn jetty:run
+set MY_SEARCH_DIRECTORY=/home/ubuntu/prjs/text
+mvn clean package
+mvn jetty:run &
 in browser go to http://54.196.76.192/WebDevelopment.First/krasnikova.html
 verify message: "Krasnikova Maria"
 
