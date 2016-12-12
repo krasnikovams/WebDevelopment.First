@@ -2,6 +2,8 @@
   <dictionary name="Masha">
     <words>
       <w>configtest</w>
+      <w>elasticsearch</w>
+      <w>kibana</w>
       <w>krasnikova</w>
       <w>logstash</w>
       <w>mkdir</w>

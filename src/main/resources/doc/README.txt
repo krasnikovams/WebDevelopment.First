@@ -45,11 +45,22 @@ in browser go to http://54.196.76.192/
 verify message: "Welcome to nginx!"
 
 
+Launch elasticsearch
+====================
+cd D:\ProgramsForWork\elasticsearch-5.1.1
+bin\elasticsearch
+
 Launch logstash
 ===============
 cd D:\ProgramsForWork\logstash-5.1.1
 bin\logstash -f C:\Users\Masha\Documents\GitHub\WebDevelopment.First\src\main\resources\logstash.conf --config.test_and_exit
 bin\logstash -f C:\Users\Masha\Documents\GitHub\WebDevelopment.First\src\main\resources\logstash.conf --config.reload.automatic
+
+Launch kibana
+=============
+cd D:\ProgramsForWork\kibana-5.1.1-windows-x86
+bin\kibana
+in browser go to http://localhost:5601/ and if first time press "save" to save default logstash pattern
 
 Appendix: Setup EC2 instance
 ============================
