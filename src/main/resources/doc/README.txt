@@ -64,6 +64,8 @@ in browser go to http://localhost:5601/ and if first time press "Create" to save
 
 Appendix: Setup EC2 instance
 ============================
+ELK: http://www.itzgeek.com/how-tos/linux/ubuntu-how-tos/setup-elk-stack-ubuntu-16-04.html
+
 sudo add-apt-repository ppa:webupd8team/java
 sudo apt-get update
 sudo apt-get install oracle-java8-installer
