@@ -34,12 +34,14 @@ check and kill if jetty is running:
 cd /home/ubuntu/prjs/WebDevelopment.First
 export MY_SEARCH_DIRECTORY=/home/ubuntu/prjs/text
 export MAVEN_OPTS=-Djava.util.logging.config.file=/home/ubuntu/prjs/WebDevelopment.First/src/main/resources/logstash.properties
+sudo iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 80 -j REDIRECT --to-port 8080
 mvn clean package
 mvn jetty:run &
 in browser go to http://54.196.76.192/WebDevelopment.First/krasnikova.html
 verify message: "Krasnikova Maria"
 
 Access nginx
+
 ============
 in browser go to http://54.196.76.192/
 verify message: "Welcome to nginx!"
@@ -50,21 +52,30 @@ Launch elasticsearch
 cd D:\ProgramsForWork\elasticsearch-5.1.1
 bin\elasticsearch
 
-Launch logstash
-===============
+Launch logstash windows
+=======================
 cd D:\ProgramsForWork\logstash-5.1.1
 bin\logstash -f C:\Users\Masha\Documents\GitHub\WebDevelopment.First\src\main\resources\logstash.conf --config.test_and_exit
 bin\logstash -f C:\Users\Masha\Documents\GitHub\WebDevelopment.First\src\main\resources\logstash.conf --config.reload.automatic
+
+Launch logstash ubuntu
+======================
+1. install ELK see "Setup EC2 instance"
+1.1 copy logstash.conf to /etc/logstash/conf.d/
+cd /etc/logstash/conf.d
+sudo cp /home/ubuntu/prjs/WebDevelopment.First/src/main/resources/logstash.conf .
 
 Launch kibana
 =============
 cd D:\ProgramsForWork\kibana-5.1.1-windows-x86
 bin\kibana
-in browser go to http://localhost:5601/ and if first time press "Create" to save default logstash pattern
+in browser go to:
+ windows: http://localhost:5601/ and if first time press "Create" to save default logstash pattern
+ ubuntu: http://54.196.76.192:5601/
 
 Appendix: Setup EC2 instance
 ============================
-install ELK: http://www.itzgeek.com/how-tos/linux/ubuntu-how-tos/setup-elk-stack-ubuntu-16-04.html
+install ELK: http://www.itzgeek.com/how-tos/linux/ubuntu-how-tos/setup-elk-stack-ubuntu-16-04.html (ignore filebeat and ssl)
 
 sudo add-apt-repository ppa:webupd8team/java
 sudo apt-get update
@@ -101,7 +112,7 @@ sudo chmod 777 logs
 
 "Build project"
 
-cd /var/log/nginx/
+nginx logs: /var/log/nginx/
 
 sudo iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 80 -j REDIRECT --to-port 8080
 "Launch jetty on AWS"
