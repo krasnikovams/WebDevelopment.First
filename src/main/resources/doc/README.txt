@@ -60,7 +60,7 @@ Launch kibana
 =============
 cd D:\ProgramsForWork\kibana-5.1.1-windows-x86
 bin\kibana
-in browser go to http://localhost:5601/ and if first time press "save" to save default logstash pattern
+in browser go to http://localhost:5601/ and if first time press "Create" to save default logstash pattern
 
 Appendix: Setup EC2 instance
 ============================
