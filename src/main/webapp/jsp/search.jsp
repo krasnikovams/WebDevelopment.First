@@ -7,11 +7,12 @@
 </head>
 <body>
     <div ng-controller="myCtrl">
+    <p>Words to search: </p>
         <form ng-submit="sendPost()">
             <input ng-model="name" />
-            <button type="submit">Send</button>
+            <button type="submit">Search</button>
         </form>
-        <p>Message from servlet: {{message}}
+        <p>Search results: {{message}}
     </div>
 </body>
 </html>
