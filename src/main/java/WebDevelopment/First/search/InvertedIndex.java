@@ -34,6 +34,10 @@ class InvertedIndex {
     private List<File> findWithFirst(String first, List<String> words){
         List<File> result = find(first);
         for (String word : words){
+            List<File> found = find(word);
+            if (result.size()==0 || found == null || found.size()== 0){
+                return new ArrayList<>();
+            }
             result.retainAll(find(word));
         }
         return result;
