@@ -9,7 +9,7 @@
     <div ng-controller="myCtrl">
     <p>Words to search: </p>
         <form ng-submit="sendPost()">
-            <input ng-model="name" />
+            <input ng-model="words" />
             <button type="submit">Search</button>
         </form>
         <p>Search results: {{message}}

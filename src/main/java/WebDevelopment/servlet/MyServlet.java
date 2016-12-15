@@ -22,11 +22,11 @@ public class MyServlet extends HttpServlet {
             sb.append(str);
         }
         JSONObject jObj = new JSONObject(sb.toString());
-        String name = jObj.getString("name");
+        String words = jObj.getString("words");
 
-        response.setContentType("text/plain");
+        response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-        response.getWriter().write("hello from java. you entered : " + name);
+        response.getWriter().write("{\"hello from java. you entered\" : \"" + words + "\"}");
 
     }
 

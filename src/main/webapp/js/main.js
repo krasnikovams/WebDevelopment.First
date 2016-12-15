@@ -9,7 +9,7 @@ helloAjaxApp.controller("myCtrl", [ '$scope', '$http', function($scope, $http) {
             url : 'MyServlet',
             method : "POST",
             data : {
-                'name' : $scope.name
+                'words' : $scope.words
             }
         }).then(function(response) {
             console.log(response.data);
