@@ -24,9 +24,9 @@ public class MyServlet extends HttpServlet {
         JSONObject jObj = new JSONObject(sb.toString());
         String words = jObj.getString("words");
 
-        response.setContentType("application/json");
+        response.setContentType("text/plain");
         response.setCharacterEncoding("UTF-8");
-        response.getWriter().write("{\"hello from java. you entered\" : \"" + words + "\"}");
+        response.getWriter().write("hello from java. you entered : " + words);
 
     }
 
