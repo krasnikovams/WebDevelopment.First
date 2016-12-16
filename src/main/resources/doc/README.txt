@@ -117,16 +117,3 @@ nginx logs: /var/log/nginx/
 sudo iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 80 -j REDIRECT --to-port 8080
 "Launch jetty on AWS"
 
-
-http://localhost:8080/WebDevelopment.First/angular_search_controller.html
-
-
-
-
-<div ng-app="AngularSearch">
-    <input ng-model="words" type="text" placeholder="Words to search">
-    <h2>Words to search: {{words}}</h2>
-    <div ng-controller="SearchCtrl">
-        <h4>Results: {{result}}</h4>
-    </div>
-</div>
