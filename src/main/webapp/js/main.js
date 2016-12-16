@@ -19,5 +19,19 @@ helloAjaxApp.controller("myCtrl", [ '$scope', '$http', function($scope, $http) {
             console.log(response);
             $scope.message = "NOTHING FOUND";
         });
+        $http({
+                url : 'ShowJsServlet',
+                method : "POST",
+                data : {
+                    'words' : newValue
+                }
+        }).then(function(response) {
+            console.log(response.data);
+            $scope.content = response.data;
+        }, function(response) {
+            //fail case
+            console.log(response);
+            $scope.content = "NOTHING FOUND";
+        });
     });
 } ]);

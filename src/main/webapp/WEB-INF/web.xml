@@ -16,7 +16,15 @@
         <servlet-name>SearchJsServlet</servlet-name>
         <servlet-class>WebDevelopment.servlet.SearchJsServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ShowJsServlet</servlet-name>
+        <servlet-class>WebDevelopment.servlet.ShowJsServlet</servlet-class>
+    </servlet>
 
+    <servlet-mapping>
+        <servlet-name>ShowJsServlet</servlet-name>
+        <url-pattern>/ShowJsServlet</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>SearchJsServlet</servlet-name>
         <url-pattern>/SearchJsServlet</url-pattern>
