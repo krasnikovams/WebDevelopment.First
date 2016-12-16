@@ -27,6 +27,10 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>SearchJsServlet</servlet-name>
+        <url-pattern>/MyServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchJsServlet</servlet-name>
         <url-pattern>/searchjs/*</url-pattern>
     </servlet-mapping>
     <servlet-mapping>

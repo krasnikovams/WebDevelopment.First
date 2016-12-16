@@ -4,10 +4,8 @@ package WebDevelopment.servlet;
         import java.io.File;
         import java.io.IOException;
         import java.util.ArrayList;
-        import java.util.Arrays;
         import java.util.Collections;
         import java.util.List;
-        import java.util.logging.Level;
 
         import javax.servlet.ServletException;
         import javax.servlet.http.HttpServlet;
@@ -31,7 +29,7 @@ public class MyServlet extends HttpServlet {
         }
         JSONObject jObj = new JSONObject(sb.toString());
         String words = jObj.getString("words");
-        List<String> found = results(words, SimpleIndexer.getInstance().search(words));
+        List<String> found = results(SimpleIndexer.getInstance().search(words));
 
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
@@ -39,7 +37,7 @@ public class MyServlet extends HttpServlet {
 
     }
 
-    private List<String> results(String words, List<File> results){
+    private List<String> results(List<File> results){
         if (results == null || results.size() == 0){
             return Collections.singletonList("NOTHING FOUND");
         }
