@@ -13,9 +13,9 @@ class InvertedIndex {
 
     InvertedIndex(String dirName)throws IOException {
         LOG.log(Level.INFO, "indexing directory: [" + dirName + "]");
-        index = index(new DirParser().parseDirectory(dirName));
+        index = Collections.unmodifiableMap(unmodifiable(index(new DirParser().parseDirectory(dirName))));
         LOG.log(Level.INFO, "completed indexing directory: [" + dirName + "], total words found (ignore case) "
-                + (index == null ? "null" : index.size()));
+                + index.size());
     }
 
     public static void main(String[] args) throws IOException {
@@ -23,28 +23,41 @@ class InvertedIndex {
         LOG.log(Level.INFO, SimpleIndexer.getInstance().search("brown dog").toString());
     }
 
-    List<File> find(List<String> words){
+    List<File> findFiles(List<String> words){
         LOG.log(Level.INFO, "search words: " + words);
         if (words == null || words.size() == 0){
             return new ArrayList<>(); //empty
         }
-        return findWithFirst(words.get(0), words.subList(1, words.size()));
+        return findWithFirst(words.get(0), words);
     }
 
     private List<File> findWithFirst(String first, List<String> words){
-        List<File> result = find(first);
+        List<File> result = findWord(first);
+        //IMPL NOTE retain all modifies result but index should not modify
+        result = result == null ? null : new ArrayList<>(result);
         for (String word : words){
-            List<File> found = find(word);
-            if (result.size()==0 || found == null || found.size()== 0){
+            List<File> found = findWord(word);
+            if (result == null || result.size()==0 || found == null || found.size()== 0){
                 return new ArrayList<>();
             }
-            result.retainAll(find(word));
+            result.retainAll(findWord(word));
         }
         return result;
     }
 
-    private List<File> find(String word){
+    private List<File> findWord(String word){
         return index.get(word.toLowerCase());
+    }
+
+    private Map<String, List<File>> unmodifiable(Map<String, List<File>> map){
+        if (map == null ){
+            return null;
+        }
+        for (String key:map.keySet()){
+            List<File> value = map.get(key);
+            map.put(key,Collections.unmodifiableList(value));
+        }
+        return map;
     }
 
     private Map<String, List<File>> index(Map<File,List<String>> filesToWords){

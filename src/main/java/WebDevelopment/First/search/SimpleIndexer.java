@@ -27,7 +27,7 @@ public class SimpleIndexer {
 
 
     public List<File> search(String input) {
-        return index.find(parse(input));
+        return index.findFiles(parse(input));
     }
 
     private InvertedIndex make(String dirName){
