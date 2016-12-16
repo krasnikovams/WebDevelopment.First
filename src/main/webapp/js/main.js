@@ -4,21 +4,20 @@ helloAjaxApp.controller("myCtrl", [ '$scope', '$http', function($scope, $http) {
 
     $http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded; charset=utf-8";
 
-    $scope.sendPost = function() {
+    $scope.$watch("words",function(newValue, oldValue){
         $http({
-            url : 'SearchJsServlet',
-            method : "POST",
-            data : {
-                'words' : $scope.words
-            }
+                url : 'SearchJsServlet',
+                method : "POST",
+                data : {
+                    'words' : newValue
+                }
         }).then(function(response) {
             console.log(response.data);
             $scope.message = response.data;
         }, function(response) {
             //fail case
             console.log(response);
-            $scope.message = response;
+            $scope.message = "NOTHING FOUND";
         });
-
-    };
+    });
 } ]);
