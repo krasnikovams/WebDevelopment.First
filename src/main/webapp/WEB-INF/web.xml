@@ -16,22 +16,10 @@
         <servlet-name>SearchJsServlet</servlet-name>
         <servlet-class>WebDevelopment.servlet.SearchJsServlet</servlet-class>
     </servlet>
-    <servlet>
-        <servlet-name>MyServlet</servlet-name>
-        <servlet-class>WebDevelopment.servlet.MyServlet</servlet-class>
-    </servlet>
 
     <servlet-mapping>
-        <servlet-name>MyServlet</servlet-name>
-        <url-pattern>/jsp/MyServlet</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>SearchJsServlet</servlet-name>
-        <url-pattern>/MyServlet</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>SearchJsServlet</servlet-name>
-        <url-pattern>/searchjs/*</url-pattern>
+        <url-pattern>/SearchJsServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>SearchServlet</servlet-name>

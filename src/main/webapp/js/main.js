@@ -6,7 +6,7 @@ helloAjaxApp.controller("myCtrl", [ '$scope', '$http', function($scope, $http) {
 
     $scope.sendPost = function() {
         $http({
-            url : 'MyServlet',
+            url : 'SearchJsServlet',
             method : "POST",
             data : {
                 'words' : $scope.words
